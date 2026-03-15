@@ -14,7 +14,10 @@ gifs = [
     "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",
     "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif",
     "https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif",
-    "https://media.giphy.com/media/xT5LMHxhOfscxPfIfm/giphy.gif"
+    "https://media.giphy.com/media/xT5LMHxhOfscxPfIfm/giphy.gif",
+    "https://tenor.com/view/cat-tired-sleepy-coffee-coffee-cup-gif-16510344054637063999",
+    "https://tenor.com/view/love-quotes-for-him-gif-16167903662682316231",
+    "https://tenor.com/view/good-morning-bom-dia-erss-ednastochi-gato-gif-13884175848341330513"
 ]
 
 handler                 = logging.FileHandler( filename = 'discord.log', encoding = 'utf-8', mode = 'w' )
@@ -29,11 +32,11 @@ horario = time(hour=6, minute=0)
 @tasks.loop(time=horario)
 async def bom_dia():
     canal_id = 1482196299918086287
-    canal = bot.get_channel(canal_id)
+    canal    = bot.get_channel(canal_id)
 
-    gif = random.choice(gifs)
+    gif      = random.choice(gifs)
 
-    await canal.send("Bom dia, @everyone ☀️")
+    await canal.send("Bom dia, pessoal ☀️")
     await canal.send(gif)
 
 @bot.event
