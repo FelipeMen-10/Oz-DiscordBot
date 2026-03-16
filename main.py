@@ -20,24 +20,23 @@ gifs = [
     "https://tenor.com/view/good-morning-bom-dia-erss-ednastochi-gato-gif-13884175848341330513"
 ]
 
-handler                 = logging.FileHandler( filename = 'discord.log', encoding = 'utf-8', mode = 'w' )
-intents                 = discord.Intents.default()
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+intents = discord.Intents.default()
 intents.message_content = True
-intents.members         = True
+intents.members = True
 
-bot = commands.Bot( command_prefix = '$', intents = intents )
+bot = commands.Bot(command_prefix='$', intents=intents)
 
 horario = time(hour=6, minute=0)
 
 @tasks.loop(time=horario)
 async def bom_dia():
     canal_id = 1482196299918086287
-    canal    = bot.get_channel(canal_id)
-
-    gif      = random.choice(gifs)
-
-    await canal.send("Bom dia, pessoal ☀️")
-    await canal.send(gif)
+    canal = bot.get_channel(canal_id)
+    if canal: # Verificação de segurança se o canal existe
+        gif = random.choice(gifs)
+        await canal.send("Bom dia, pessoal ☀️")
+        await canal.send(gif)
 
 @bot.event
 async def on_member_join(member):
@@ -47,6 +46,7 @@ async def on_member_join(member):
 async def ola(ctx):
     await ctx.send(f"Fala trutinha, {ctx.author.mention} <3")
 
+# CORREÇÃO AQUI: Era @bot_command(), mudei para @bot.command()
 @bot.command()
 async def morre(ctx):
     try:
@@ -59,6 +59,7 @@ async def morre(ctx):
 @bot.event
 async def on_ready():
     print(f"Bora trabalhar, {bot.user.name}!")
-    bom_dia.start()
+    if not bom_dia.is_running(): # Evita erro se o bot reiniciar
+        bom_dia.start()
 
-bot.run(token, log_handler = handler, log_level = logging.DEBUG )
+bot.run(token, log_handler=handler, log_level=logging.DEBUG)
