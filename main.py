@@ -47,6 +47,15 @@ async def on_member_join(member):
 async def ola(ctx):
     await ctx.send(f"Fala trutinha, {ctx.author.mention} <3")
 
+@bot_command()
+async def morre(ctx):
+    try:
+        await ctx.author.send("AQUI É OZ PORRA, MORRE NUNCA!!!")
+        await ctx.author.send("https://tenor.com/view/joo-jew-jewl-s4j78-gif-5651286586900019647")
+        await ctx.send("Fala, maninho... mandei uma dm pra você rsrs"
+    except discord.Forbidden:
+        await ctx.send("Da pra me desbloquear seu bosta, arruma essas config ai")
+
 @bot.event
 async def on_ready():
     print(f"Bora trabalhar, {bot.user.name}!")
