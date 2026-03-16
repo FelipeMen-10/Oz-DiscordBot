@@ -52,7 +52,7 @@ async def morre(ctx):
     try:
         await ctx.author.send("AQUI É OZ PORRA, MORRE NUNCA!!!")
         await ctx.author.send("https://tenor.com/view/joo-jew-jewl-s4j78-gif-5651286586900019647")
-        await ctx.send("Fala, maninho... mandei uma dm pra você rsrs"
+        await ctx.send("Fala, maninho... mandei uma dm pra você rsrs")
     except discord.Forbidden:
         await ctx.send("Da pra me desbloquear seu bosta, arruma essas config ai")
 
