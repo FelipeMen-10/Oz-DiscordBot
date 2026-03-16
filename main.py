@@ -47,7 +47,7 @@ async def on_member_join(member):
 async def ola(ctx):
     await ctx.send(f"Fala trutinha, {ctx.author.mention} <3")
 
-@bot_command()
+@bot.command()
 async def morre(ctx):
     try:
         await ctx.author.send("AQUI É OZ PORRA, MORRE NUNCA!!!")
