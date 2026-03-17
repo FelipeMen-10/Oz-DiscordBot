@@ -23,17 +23,16 @@ gifs = [
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 intents = discord.Intents.default()
 intents.message_content = True
-intents.members = True
+intents.members         = True
+bot     = commands.Bot(command_prefix='$', intents=intents)
 
-bot = commands.Bot(command_prefix='$', intents=intents)
-
-horario = time(hour=6, minute=0)
+horario = time(hour=8, minute=0)
 
 @tasks.loop(time=horario)
 async def bom_dia():
     canal_id = 1482196299918086287
     canal = bot.get_channel(canal_id)
-    if canal: # Verificação de segurança se o canal existe
+    if canal:
         gif = random.choice(gifs)
         await canal.send("Bom dia, pessoal ☀️")
         await canal.send(gif)
@@ -46,7 +45,6 @@ async def on_member_join(member):
 async def ola(ctx):
     await ctx.send(f"Fala trutinha, {ctx.author.mention} <3")
 
-# CORREÇÃO AQUI: Era @bot_command(), mudei para @bot.command()
 @bot.command()
 async def morre(ctx):
     try:
@@ -56,10 +54,18 @@ async def morre(ctx):
     except discord.Forbidden:
         await ctx.send("Da pra me desbloquear seu bosta, arruma essas config ai")
 
+@bot.command()
+async def pedro(ctx):
+    pedro_user = await bot.fetch_user(273253850104856576)
+
+    await ctx.send(f"O {pedro_user.mention} quis o meu pior, ou seja, busquem o pior pra ele...")
+    await ctx.send(file=discord.File('img/pedro_morre.png'))
+    await ctx.send(file=discord.File('img/casa_pedro.png'))
+
 @bot.event
 async def on_ready():
     print(f"Bora trabalhar, {bot.user.name}!")
-    if not bom_dia.is_running(): # Evita erro se o bot reiniciar
+    if not bom_dia.is_running():
         bom_dia.start()
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
